@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure & Build
         run: |
-          Get-ChildItem -Recurse -Filter CMakeLists.txt | ForEach-Object { (Get-Content $_.FullName) -replace '-W[a-zA-Z0-9-]+', '' | Set-Content $_.FullName }
+          Get-ChildItem -Recurse -Filter CMakeLists.txt | ForEach-Object { (Get-Content $_.FullName) -replace '-Wl,--no-undefined|-W[a-zA-Z0-9-]+', '' | Set-Content $_.FullName }
           cmake -B build -A Win32 "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" -DBUILD_SHARED_LIBS=ON
           cmake --build build --config Release
       - uses: actions/upload-artifact@v4
